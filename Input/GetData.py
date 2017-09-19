@@ -11,7 +11,7 @@ ch.setFormatter(formatter)
 Data_logger.addHandler(ch)
 
 proxies={ "https":"http://182.92.177.164:2333"}
-def get_BookInfoPage(ISBN,t_proxies={}):
+def get_BookInfoPage(ISBN,t_proxies=proxies):
     '''
     从豆瓣的接口下载图书信息
     Input:
