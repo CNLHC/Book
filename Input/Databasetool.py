@@ -1,8 +1,3 @@
-#coding:utf-8
-import sys 
-reload(sys)
-sys.setdefaultencoding('utf-8')
-#Happy Coding
 import json,sqlite3,os
 import logging
 ####################logger setting####################
@@ -31,6 +26,7 @@ def HasDuplicate(sqlite_conn,ISBN):
     else:
         logger_Datatool.debug('Has Duplicate')
         return True
+
 def atomexec(json_str,sqlite_conn):
     ''' 写入数据库文件,写入的字段是固定的.本函数不检查数据库中是否存在重复项
     写入的字段包括: isbn13,isbn10,images_url,title,pubdate,pages,publisher,Author
