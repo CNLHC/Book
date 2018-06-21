@@ -22,17 +22,18 @@ def BookInfoByIsbn(ISBN,t_proxies=proxies,apiBaseUrl="https://api.douban.com/v2/
         Json file Str
         False
     '''
-    page=requests.get("https://api.douban.com/v2/book/isbn/"+ISBN,proxies=t_proxies).text
-    content=requests.get(apiBaseUrl+ISBN,proxies=t_proxies).text
-    json.loads(content)
-    if page.find("rate_limit_exceeded2")>=0:
-        Data_logger.warning("豆瓣接口调用次数已达到最大值")
-        return False
-    elif page.find("book_not_found")>=0:
-        Data_logger.warning("豆瓣上未找到该书信息")
-        return False
-    else:
-        return page
+    reqobj=requests.get(apiBaseUrl+ISBN,proxies=t_proxies)
+    if reqobj.status_code != 200:
+        Data_logger.warning("远程接口错误")
+        return dict({})
+    content=reqobj.text
+
+    try:
+        return json.loads(content)
+
+    except json.decoder.JSONDecodeError:
+        Data_logger.error("json解析错误")
+        return  {}
 
 #info=get_BookInfoPage(isbn)
 #t_formatjson=json.dumps(json.loads(info),indent=4,sort_keys=False,ensure_ascii=False)
