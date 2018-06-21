@@ -11,6 +11,8 @@ class TestAPI(unittest.TestCase):
     def testDoubanBook(self):
         return 
 
+    def testoubanBook(self):
+        return 
 
     
 
